@@ -2,7 +2,6 @@ var local = {
     vendedoras: ["Ada", "Grace", "Hedy", "Sheryl"],
   
     ventas: [
-      // tener en cuenta que Date guarda los meses del 0 (enero) al 11 (diciembre)
       { fecha: new Date(2019, 1, 4), nombreVendedora: "Grace", componentes: ["Monitor GPRS 3000", "Motherboard ASUS 1500"] },
       { fecha: new Date(2019, 0, 1), nombreVendedora: "Ada", componentes: ["Monitor GPRS 3000", "Motherboard ASUS 1500"] },
       { fecha: new Date(2019, 0, 2), nombreVendedora: "Grace", componentes: ["Monitor ASC 543", "Motherboard MZI"] },
@@ -25,9 +24,7 @@ var local = {
 
 // PARTE 1
 
-/* 1_ precioMaquina(componentes): recibe un array de componentes y devuelve 
-el precio de la máquina que se puede armar con esos componentes, que es la 
-suma de los precios de cada componente incluido.*/
+// 1_
 
 const precioMaquina = (componentes) => {
   let sumar = 0;
@@ -41,13 +38,10 @@ const precioMaquina = (componentes) => {
   return sumar;
 };
 
-//console.log( precioMaquina(["Monitor GPRS 3000", "Motherboard ASUS 1500"]) );
+console.log( precioMaquina(["Monitor GPRS 3000", "Motherboard ASUS 1500"]) );
 // 320 ($200 del monitor + $120 del motherboard)
 
-/* 2_ cantidadVentasComponente(componente): recibe un componente y devuelve la 
-cantidad de veces que fue vendido, o sea que formó parte de una máquina que 
-se vendió. La lista de ventas no se pasa por parámetro, se asume que está 
-identificada por la variable ventas. */
+// 2_ 
 
 const cantidadVentasComponente = (componente) => {
   let cantidad = 0;
@@ -58,13 +52,9 @@ const cantidadVentasComponente = (componente) => {
   });
   return cantidad
 }
-//console.log(cantidadVentasComponente("Monitor ASC 543")); // 2
+console.log(cantidadVentasComponente("Monitor ASC 543")); // 2
 
-/* 3_ vendedoraDelMes(mes, anio), se le pasa dos parámetros numéricos, (mes, anio)
- y devuelve el nombre de la vendedora que más vendió en plata en el mes. O sea no 
- cantidad de ventas, sino importe total de las ventas. El importe de una venta es el 
- que indica la función precioMaquina. El mes es un número entero que va desde el 1 
- (enero) hasta el 12 (diciembre).*/
+// 3_
 
 const vendedoraDelMes = (mes,anio) => {
   let nombreVendedora = "";
@@ -89,12 +79,10 @@ const vendedoraDelMes = (mes,anio) => {
   return nombreVendedora;
 }
 
-
-//console.log( vendedoraDelMes(1, 2019) ); 
+console.log( vendedoraDelMes(1, 2019) ); 
 // "Ada" (vendio por $670, una máquina de $320 y otra de $350)
 
-/* 4_ ventasMes(mes, anio): Obtener las ventas de un mes. El mes es un número entero 
-que va desde el 1 (enero) hasta el 12 (diciembre).*/
+// 4_
 
 const ventasMes = (mes,anio) => {
   let acumulador = 0;
@@ -110,10 +98,9 @@ const ventasMes = (mes,anio) => {
   return acumulador;
 }
 
-//console.log( ventasMes(1, 2019) ); // 1250
+console.log( ventasMes(1, 2019) ); // 1250
 
-/* 5_ ventasVendedora(nombre): Obtener las ventas totales realizadas por una vendedora 
-sin límite de fecha. */
+// 5_
 
 const ventasVendedora = (nombre) => {
   let acumuladorVentas = 0;
@@ -127,11 +114,9 @@ const ventasVendedora = (nombre) => {
   return acumuladorVentas;
 }
 
-//console.log( ventasVendedora("Grace") ); // 900
+console.log( ventasVendedora("Grace") ); // 900
 
-/* 6_ componenteMasVendido(): Devuelve el nombre del componente que más ventas tuvo
-historicamente. El dato de la cantidad de ventas es el que indica la función 
-cantidadVentasComponente*/
+// 6_
 
 const componenteMasVendido = () => {
   let componentesVendidos = [];
@@ -152,10 +137,9 @@ const componenteMasVendido = () => {
   return acumulador;
 }
 
-//console.log(componenteMasVendido()); // Monitor GPRS 3000
+console.log(componenteMasVendido()); // Monitor GPRS 3000
 
-/* 7_ huboVentas(mes, anio): que indica si hubo ventas en un mes determinado. El mes 
-es un número entero que va desde el 1 (enero) hasta el 12 (diciembre). */
+// 7_ 
 
 const huboVentas = (mes, anio) => {
 
@@ -169,17 +153,9 @@ const huboVentas = (mes, anio) => {
   return false;
 }
 
-//console.log( huboVentas(1, 2019) ); // false
-
+console.log( huboVentas(1, 2019) ); // false
 
 // PARTE 2 
-
-/*
-Como se abrió una nueva sucursal en Caballito, ahora los datos de las ventas 
-también tienen el nombre de la sucursal en la cual se realizó. Por ejemplo: 
-{ fecha: new Date(2019, 1, 1), nombreVendedora: "Ada", componentes: ["Monitor GPRS 3000",
- "Motherboard ASUS 1500"], sucursal: 'Centro' }. Por este cambio, se pide: 
-*/
 
 //- En las ventas ya existentes, tenemos que agregar la propiedad sucursal con el 
 //valor Centro (ya que es la sucursal original).
@@ -194,23 +170,6 @@ local.sucursales = ["Centro", "Caballito"];
 
 //- Cargar la siguiente información en el array ventas, creando sus respectivos objetos
 //siguiendo el patrón: fecha, nombreVendedora, componentes, sucursal. 
-
-
-// 12/02/2019, Hedy, [Monitor GPRS 3000, HDD Toyiva], Centro
-// 24/02/2019, Sheryl, [Motherboard ASUS 1500, HDD Wezter Dishital], Caballito
-// 01/02/2019, Ada, [Motherboard MZI, RAM Quinston Fury], Centro
-// 11/02/2019, Grace, [Monitor ASC 543, RAM Quinston], Caballito
-// 15/02/2019, Ada, [Motherboard ASUS 1200, RAM Quinston Fury], Centro
-// 12/02/2019, Hedy, [Motherboard ASUS 1500, HDD Toyiva], Caballito
-// 21/02/2019, Grace, [Motherboard MZI, RAM Quinston], Centro
-// 08/02/2019, Sheryl, [Monitor ASC 543, HDD Wezter Dishital], Centro
-// 16/02/2019, Sheryl, [Monitor GPRS 3000, RAM Quinston Fury], Centro
-// 27/02/2019, Hedy, [Motherboard ASUS 1200, HDD Toyiva], Caballito
-// 22/02/2019, Grace, [Monitor ASC 543, HDD Wezter Dishital], Centro
-// 05/02/2019, Ada, [Motherboard ASUS 1500, RAM Quinston], Centro
-// 01/02/2019, Grace, [Motherboard MZI, HDD Wezter Dishital], Centro
-// 07/02/2019, Sheryl, [Monitor GPRS 3000, RAM Quinston], Caballito
-// 14/02/2019, Ada, [Motherboard ASUS 1200, HDD Toyiva], Centro
 
 local.ventas.push(
   { fecha: new Date(2019, 1, 12), nombreVendedora: "Hedy", componentes: ["Monitor GPRS 3000", "HDD Toyiva"], sucursal: "Centro" },
@@ -231,8 +190,7 @@ local.ventas.push(
 )
 //console.log(local);
 
-//1_ Crear la función ventasSucursal(sucursal), que obtiene las ventas totales realizadas 
-//por una sucursal sin límite de fecha.
+// 1_
 
 const ventasSucursal = (nombreSucursal) => {
   let acumuladorVentas = 0;
@@ -246,12 +204,10 @@ const ventasSucursal = (nombreSucursal) => {
   return acumuladorVentas;
 }
 
-//console.log( ventasSucursal("Centro") ); // 4195
+console.log( ventasSucursal("Centro") ); // 4195
 
 
-//2_ Las funciones ventasSucursal y ventasVendedora tienen mucho código en común, 
-// ya que es la misma funcionalidad pero trabajando con una propiedad distinta. 
-//Entonces, ¿cómo harías para que ambas funciones reutilicen código y evitemos repetir?
+// 2_ 
 
 const ventaLocales = (nombre) => {
   let acumuladorVentas = 0;
@@ -265,13 +221,9 @@ const ventaLocales = (nombre) => {
   return `El valor de las ventas totales de ${nombre} es ${acumuladorVentas}`;
 }
 
-//console.log(ventaLocales("Centro"));
+console.log(ventaLocales("Centro"));
 
-//3_ Crear la función sucursalDelMes(mes, anio), que se le pasa dos parámetros numéricos, 
-//(mes, anio) y devuelve el nombre de la sucursal que más vendió en plata en el mes. 
-//No cantidad de ventas, sino importe total de las ventas. El importe de una venta es 
-//el que indica la función precioMaquina. El mes es un número entero que va desde el 1 
-//(enero) hasta el 12 (diciembre).
+// 3_
 
 const sucursalDelMes =  (mes, anio) => {
   let acumuladorVentas = 0;
@@ -296,15 +248,11 @@ const sucursalDelMes =  (mes, anio) => {
   return nombreSucursal;
 }
 
-//console.log( sucursalDelMes(1, 2019) ); // "Centro"
+console.log( sucursalDelMes(1, 2019) ); // "Centro"
 
 //PARTE 3
 
-//Para tener una mejor muestra de como está resultando el local, queremos desarrollar
-//un reporte que nos muestre las ventas por sucursal y por mes. Para esto, necesitamos 
-//crear las siguientes funciones:
-
-//1_ renderPorMes(): Muestra una lista ordenada del importe total vendido por cada mes/año
+// 1_ 
 
 const renderPorMes = () => {
 
@@ -341,12 +289,12 @@ const renderPorMes = () => {
   }
   return mostrar;
 }
-//console.log(renderPorMes());
+console.log(renderPorMes());
 // Ventas por mes:
 //   Total de enero 2019: 1250
 //   Total de febrero 2019: 4210
 
-//2_ renderPorSucursal(): Muestra una lista del importe total vendido por cada sucursal
+// 2_ 
 
 const renderPorSucursal = () => {
   let ventasPorSucursal = {};
@@ -363,14 +311,13 @@ const renderPorSucursal = () => {
   return mostrar
 }
 
-//console.log(renderPorSucursal());
+console.log(renderPorSucursal());
 
 // Ventas por sucursal:
-//   Total de Centro: 4195
-//   Total de Caballito: 1265
+//  Total de Centro: 4195
+//  Total de Caballito: 1265
 
-//3_ render(): Tiene que mostrar la unión de los dos reportes anteriores, cual fue el 
-//producto más vendido y la vendedora que más ingresos generó
+// 3_ 
 
 const render = () => {
     const mostrar = "Reporte: \n"
@@ -395,7 +342,8 @@ const render = () => {
     }
 }
 
-console.log( render() );
+console.log(render());
+
 // Reporte
 // Ventas por mes:
 //   Total de enero 2019: 1250
