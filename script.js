@@ -149,7 +149,7 @@ const componenteMasVendido = () => {
       acumulador = componentesVendidos[i];
     }
   }
-  return acumulador
+  return acumulador;
 }
 
 //console.log(componenteMasVendido()); // Monitor GPRS 3000
@@ -166,7 +166,7 @@ const huboVentas = (mes, anio) => {
       return true
     }
   }
-  return false
+  return false;
 }
 
 //console.log( huboVentas(1, 2019) ); // false
@@ -253,7 +253,7 @@ const ventasSucursal = (nombreSucursal) => {
 // ya que es la misma funcionalidad pero trabajando con una propiedad distinta. 
 //Entonces, ¿cómo harías para que ambas funciones reutilicen código y evitemos repetir?
 
-/* const ventaLocales = (nombre) => {
+const ventaLocales = (nombre) => {
   let acumuladorVentas = 0;
 
   for (let venta of local.ventas) {
@@ -263,7 +263,7 @@ const ventasSucursal = (nombreSucursal) => {
     }
   }
   return `El valor de las ventas totales de ${nombre} es ${acumuladorVentas}`;
-}*/
+}
 
 //console.log(ventaLocales("Centro"));
 
@@ -298,19 +298,6 @@ const sucursalDelMes =  (mes, anio) => {
 
 //console.log( sucursalDelMes(1, 2019) ); // "Centro"
 
-    
-
-/*const agregarTecnologias = () => {
-  const nuevaPropiedad = ['Git', 'Node.js'];
-  empleades.forEach(empleade => {
-      //creo una nueva propiedad con defineProperty y la meto en mi array de ojetos
-      Object.defineProperty(empleade, 'Tecnologias:', {
-          value: nuevaPropiedad,
-      })
-  })
-  return empleades;
-}*/
-
 //PARTE 3
 
 //Para tener una mejor muestra de como está resultando el local, queremos desarrollar
@@ -325,14 +312,13 @@ const renderPorMes = () => {
   let ventasOrdenadas = local.ventas.sort((a, b) => {
     return a.fecha - b.fecha
   })
-  
 
   for(venta of ventasOrdenadas){
     ventasPorMes[venta.fecha.getMonth()] = ventasMes(venta.fecha.getMonth() + 1, venta.fecha.getFullYear())
   }
   //console.log(venta);
 
-  let mostrar = "Ventas por mes: ";
+  let mostrar = "Ventas por mes: \n";
   //mes es la propiedad
   for(let mes in ventasPorMes) {
 
@@ -351,7 +337,7 @@ const renderPorMes = () => {
         "diciembre"
       ];
 
-    mostrar += `Total de ${nombreMes[mes]}: ${ventasPorMes[mes]} `;
+    mostrar += `Total de ${nombreMes[mes]}: ${ventasPorMes[mes]} pesos\n`;
   }
   return mostrar;
 }
@@ -364,34 +350,52 @@ const renderPorMes = () => {
 
 const renderPorSucursal = () => {
   let ventasPorSucursal = {};
-  let mostrar = "Ventas por sucursal: ";
+  let mostrar = "Ventas por sucursal: \n";
 
   for (let venta of local.ventas) {
     ventasPorSucursal[venta.sucursal] = ventasSucursal(venta.sucursal);
   }
-  console.log(ventasPorSucursal);
 
-  for (valor in ventasPorSucursal) {
-    mostrar += ventasPorSucursal;
+  for (prop in ventasPorSucursal) {
+    mostrar += `En la sucursal ${prop} se vendieron ${ventasPorSucursal[prop]} pesos \n`;
   }
 
   return mostrar
 }
 
-console.log(renderPorSucursal());
+//console.log(renderPorSucursal());
 
 // Ventas por sucursal:
 //   Total de Centro: 4195
 //   Total de Caballito: 1265
 
-
 //3_ render(): Tiene que mostrar la unión de los dos reportes anteriores, cual fue el 
 //producto más vendido y la vendedora que más ingresos generó
 
+const render = () => {
+    const mostrar = "Reporte: \n"
+    let nombreVendedora = "";
+    let acumulador = 0;
+
+    for (let venta of local.ventas) {
+
+        let valor = precioMaquina(venta.componentes)
+        if (valor > acumulador) {
+            acumulador += valor;
+            nombreVendedora = venta.nombreVendedora;
+        }
+
+        let renderMes = renderPorMes(venta);
+        let renderSucursal = renderPorSucursal(venta.sucursal);
+        let productoEstrella = componenteMasVendido(venta.componentes);
+        let vendedora = nombreVendedora;
 
 
+        return mostrar + `${renderMes}${renderSucursal}Producto estrella: ${productoEstrella} \nVendedora que más ingresos generó: ${vendedora}`;
+    }
+}
 
-//console.log( render() );
+console.log( render() );
 // Reporte
 // Ventas por mes:
 //   Total de enero 2019: 1250
